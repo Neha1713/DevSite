@@ -1,0 +1,42 @@
+{
+  "name": "DevSite",
+  "version": "1.0.0",
+  "description": "My Personal Project X",
+  "main": "server.js",
+  "engines": {
+    "node": "11.6.0",
+    "npm": "6.9.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "devStart": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShashankSharma17/Project-Anonymous.git"
+  },
+  "author": "Mr.Wolf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShashankSharma17/Project-Anonymous/issues"
+  },
+  "homepage": "https://github.com/ShashankSharma17/Project-Anonymous#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.2",
+    "express-session": "^1.15.6",
+    "github2": "^2.4.0",
+    "mongoose": "^5.4.18",
+    "passport": "^0.4.0",
+    "passport-github2": "^0.1.11",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.0.0",
+    "nodemon": "^1.19.0"
+  }
+}

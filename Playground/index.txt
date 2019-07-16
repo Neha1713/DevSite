@@ -1,0 +1,80 @@
+const router = require('express').Router()
+const passport = require('passport')
+const bcrypt = require('bcryptjs')
+const mongoose = require('mongoose')
+
+const { Authenticated } = require('../helper/auth')
+
+require('../models/User')
+const User = mongoose.model('users')
+
+router.get('/', (req, res) => res.render('index/login'))
+
+router.get('/dashboard', Authenticated, (req, res) =>
+  res.render('index/dashboard')
+)
+
+router.get('/login', (req, res) => res.render('index/login'))
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/login'
+  })(req, res, next)
+})
+
+router.get('/register', (req, res) => res.render('index/register'))
+
+router.post('/register', (req, res) => {
+  let errors = []
+  const { name, email, password, password2 } = req.body
+
+  if (password !== password2) {
+    errors.push({ err: 'Password did not match' })
+  }
+
+  if (password.lenght < 8) {
+    errors.push({ err: 'password is too short' })
+  }
+
+  if (errors.lenght) {
+    res.redirect('/register')
+  } else {
+    User.findOne({ 'local.email': email }).then(user => {
+      if (user) {
+        console.log('User Already Registered!')
+        res.redirect('/login')
+      } else {
+        const newUser = {
+          local: {
+            name,
+            email,
+            password
+          }
+        }
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newUser.local.password, salt, (err, hash) => {
+            if (err) throw err
+            else {
+              newUser.local.password = hash
+              new User(newUser).save().then(user => {
+                if (user) {
+                  console.log('User Created')
+                  res.redirect('/login')
+                } else {
+                  console.log("User Can't Be Created")
+                }
+              })
+            }
+          })
+        })
+      }
+    })
+  }
+})
+
+router.get('/html5games', (req, res) => res.render('index/htmlGames'))
+router.get('/retrogames', (req, res) => res.render('index/retroGames'))
+router.get('/dalily-js-tips', (req, res) => res.render('index/dailyJS'))
+router.get('/motivate-me', (req, res) => res.render('index/motivateMe'))
+
+module.exports = router
