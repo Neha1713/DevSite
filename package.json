@@ -29,7 +29,7 @@
     "express-handlebars": "^3.0.2",
     "express-session": "^1.15.6",
     "github2": "^2.4.0",
-    "mongoose": "^5.4.18",
+    "mongoose": "^5.7.5",
     "passport": "^0.4.0",
     "passport-github2": "^0.1.11",
     "passport-google-oauth20": "^2.0.0",
